@@ -6,22 +6,25 @@ import { useState } from "react";
 const Main = () => {
   const [sidebarToggle, setSidebarToggle] = useState(false);
   console.log(sidebarToggle);
-  
+
   return (
-    <div className="">
-      <div className={`${sidebarToggle ? "duration-500 ease-in-out" : "ml-0 md:ml-60"} sticky top-0 `}>
+    <div className="bg-gray-100 m-0 h-full mb-52">
+      <div
+        className={`${
+          sidebarToggle ? "duration-500 ease-in-out" : "ml-0 md:ml-60"
+        } sticky top-0 `}
+      >
         <Navbar
           sidebarToggle={sidebarToggle}
           setSidebarToggle={setSidebarToggle}
-          
         />
       </div>
       <div className="">
-        <Sidebar sidebarToggle={sidebarToggle}  />
+        <Sidebar sidebarToggle={sidebarToggle} />
       </div>
-    <div className="">
-    <Outlet />
-    </div>
+      <div className="">
+        <Outlet />
+      </div>
     </div>
   );
 };
