@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Area,
   AreaChart,
@@ -7,7 +8,12 @@ import {
   YAxis,
 } from "recharts";
 
-const AreaChartsC = () => {
+const AreaChartsC = ({ sidebarToggle }) => {
+  const [barChartWidth, setBarChartWidth] = useState(400);
+
+  useEffect(() => {
+    setBarChartWidth(sidebarToggle ? 320 : 400);
+  }, [sidebarToggle]);
   const data = [
     {
       name: "  A",
@@ -55,7 +61,7 @@ const AreaChartsC = () => {
   return (
     <div>
       <AreaChart
-        width={320}
+        width={barChartWidth}
         height={365}
         data={data}
         margin={{
@@ -73,7 +79,7 @@ const AreaChartsC = () => {
         </defs>
         <XAxis dataKey="name" axisLine={false} tickLine={false} />
         <YAxis axisLine={false} tickLine={false} left={24} />
-        {/* <Tooltip /> */}
+        <Tooltip />
         <Area
           type="monotone"
           dataKey="uv"
