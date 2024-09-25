@@ -2,6 +2,7 @@ import { FaRegUser } from "react-icons/fa";
 import { GoHome } from "react-icons/go";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
+import { Link } from "react-router-dom";
 
 const Sidebar = ({ sidebarToggle }) => {
   return (
@@ -25,11 +26,11 @@ const Sidebar = ({ sidebarToggle }) => {
             </a>
           </li>
           <li className="rounded hover:bg-violet-200 hover:text-violet-600 p-3">
-            <a href="" className="text-base">
+            <Link to="/product" className="text-base">
               <FaRegUser className="inline-block w-5 h-5 -mt-2 mr-[6px]" />
               Profile{" "}
               <RiArrowRightSLine className="inline-block w-5 h-5 -mt-1 mr-[6px]" />
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

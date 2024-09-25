@@ -8,7 +8,7 @@ const Main = () => {
   const [sidebarToggle, setSidebarToggle] = useState(true);
 
   return (
-    <div>
+    <div className="font-poppins">
       <div
         className={`${sidebarToggle ? "duration-500 ease-in-out" : "ml-0 md:-ml-60"}`}
       >
@@ -24,7 +24,7 @@ const Main = () => {
         <div className="">
           <Sidebar sidebarToggle={sidebarToggle} />
         </div>
-        <Outlet />
+        {/* <Outlet /> */}
       </div>
 
       {/* <div className="">

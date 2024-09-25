@@ -11,6 +11,7 @@ import {
 import AreaChartsC from "../../components/share/AreaChartsC";
 import Profile from "../../components/Profile";
 import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
 
 const data = [
   {
@@ -67,6 +68,7 @@ const Dashboard = ({ sidebarToggle }) => {
         <div className="">
           <h2 className="text-xl font-semibold mt-4 mb-7">Dashboard</h2>
         </div>
+        {/* <Outlet/> */}
         {/* dashboard card desing */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-3 md:mx-auto">
           <div className="bg-gradient-to-r from-purple-400 to-violet-100 h-36 rounded-lg">
@@ -120,7 +122,8 @@ const Dashboard = ({ sidebarToggle }) => {
             <AreaChartsC sidebarToggle={sidebarToggle} />
           </div>
         </div>
-        <Profile />
+        {/* <Profile /> */}
+        <Outlet/>
       </div>
     </div>
   );

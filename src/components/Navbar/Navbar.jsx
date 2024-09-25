@@ -21,7 +21,7 @@ const Navbar = ({ sidebarToggle, setSidebarToggle }) => {
               className="text-black text-2xl font-extrabold right-5 md:ml-60 cursor-pointer absolute md:top-[30px] md:left-5"
             />
           )}
-          <span className="text-black text-xl -ml-4 md:ml-64 ">
+          <span className="text-black text-xl -ml-4 md:ml-64 poppins">
             Business Center
           </span>
         </div>

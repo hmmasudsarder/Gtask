@@ -19,7 +19,7 @@ const Profile = () => {
     setTableData(data);
   }, []);
   return (
-    <div id="profile">
+    <div id="product">
       <div className="container mx-auto mt-10 pb-20 overflow-x-auto md:overflow-hidden">
         <table className="table-auto border-collapse border-gray-200 w-full">
           <thead className="bg-purple-100 rounded py-24">
