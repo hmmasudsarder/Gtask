@@ -3,8 +3,18 @@ import user from "../../assets/user.jpg";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 const User = () => {
   const [open, setOpen] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.pathname);
+
+  const handleLoginClick = () => {
+    navigate("/login");
+    console.log("click");
+  };
+
   return (
     <div>
       <div className="relative" onClick={() => setOpen(!open)}>
@@ -25,7 +35,13 @@ const User = () => {
               <FaRegUser className="mt-1" /> Profile
             </li>
             <li className="p-1 text-start text-lg cursor-pointer flex items-center gap-4">
-              <MdOutlineLogout className="mt-2" /> Logout
+              <Link
+                to="/login"
+                onClick={handleLoginClick}
+                className="flex items-center gap-4"
+              >
+                <MdOutlineLogout className="mt-2" /> Log In
+              </Link>
             </li>
           </ul>
         </div>

@@ -36,22 +36,7 @@ const Navbar = ({ sidebarToggle, setSidebarToggle }) => {
           </div>
           <div className="relative">
             <button className="text-black group hidden md:block">
-              {/* <div className="flex items-center gap-3"><FaRegUser  className="w-8 h-8 mt-1" />
-            <span className="text-base mt-3">Admin</span> <RiArrowRightSLine className="text-2xl mt-3"/></div> */}
               <User />
-              {/* <div className="z-10 hidden bg-white absolute rounded-lg shadow w-32 group-focus:block top-full right-0">
-              <ul className="py-2 text-sm text-gray-900">
-                <li>
-                  <a href="">Profile</a>
-                </li>
-                <li>
-                  <a href="">Setting</a>
-                </li>
-                <li>
-                  <a href="">Log Out</a>
-                </li>
-              </ul>
-            </div> */}
             </button>
           </div>
         </div>

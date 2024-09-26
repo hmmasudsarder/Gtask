@@ -14,22 +14,30 @@ const Sidebar = ({ sidebarToggle }) => {
             : "block ease-in duration-1000"
         } `}
       >
-        <div className="my-2 mb-4 mt-2 p-3  rounded-md flex items-center gap-1 hover:bg-violet-200 hover:text-violet-600">
-          <RxDashboard className="text-base" />
-          <h2 className="text-lg">Dashboard</h2>
-        </div>
+        <Link to="/dashboard">
+          <div className="my-2 mb-4 mt-2 p-3  rounded-md flex items-center gap-1 hover:bg-violet-200 hover:text-violet-600">
+            <RxDashboard className="text-base" />
+            <h2 className="text-lg">Dashboard</h2>
+          </div>
+        </Link>
         <ul className="">
           <li className="rounded hover:bg-violet-200 hover:text-violet-600 p-3">
-            <a href="" className="text-base">
+            <Link to="/" className="text-base">
               <GoHome className="inline-block w-5 h-5 -mt-2 mr-[6px]" />
               Home
-            </a>
+            </Link>
           </li>
           <li className="rounded hover:bg-violet-200 hover:text-violet-600 p-3">
             <Link to="/product" className="text-base">
               <FaRegUser className="inline-block w-5 h-5 -mt-2 mr-[6px]" />
               Profile{" "}
               <RiArrowRightSLine className="inline-block w-5 h-5 -mt-1 mr-[6px]" />
+            </Link>
+          </li>
+          <li>
+            <Link to="/user" className="text-base">
+              <FaRegUser className="inline-block w-5 h-5 -mt-2 mr-[6px]" />
+              User{" "}
             </Link>
           </li>
         </ul>
