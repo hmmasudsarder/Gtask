@@ -19,7 +19,8 @@ const Main = () => {
               setSidebarToggle={setSidebarToggle}
             />
           </div>
-          <Dashboard sidebarToggle={sidebarToggle} />
+          <Dashboard />
+          {/* <Outlet /> */}
         </div>
         <div className="">
           <Sidebar sidebarToggle={sidebarToggle} />

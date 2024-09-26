@@ -4,6 +4,8 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 const User = () => {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
@@ -14,6 +16,16 @@ const User = () => {
     navigate("/login");
     console.log("click");
   };
+
+  
+  const { data: sms = [] } = useQuery({
+    queryKey: ["sms"],
+    queryFn: async () => {
+      const { data } = await axios.get("http://52.74.26.144:9000/client/bulkClient/list/?q=pocah");
+      return data;
+    },
+  });
+  console.log(sms);  
 
   return (
     <div>

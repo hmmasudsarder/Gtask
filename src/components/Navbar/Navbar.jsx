@@ -3,13 +3,25 @@ import { FiShoppingCart } from "react-icons/fi";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { VscChromeClose } from "react-icons/vsc";
 import User from "../share/User";
+import queryString from "query-string";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ sidebarToggle, setSidebarToggle }) => {
+  const navigate = useNavigate();
+  const handleOnClick = () => {
+    let currentQuery = { currentState: sidebarToggle };
+    const url = queryString.stringifyUrl({
+      url: "/",
+      query: currentQuery,
+    });
+    navigate(url);
+  };
+
   return (
     <div className="">
       <div className="bg-white px-10 py-4 border-b-2 border-violet-100 flex justify-between duration-700 ease-in-out">
         {/* left site navbar icons title  */}
-        <div className="flex items-center ">
+        <div className="flex items-center" onClick={handleOnClick}>
           {sidebarToggle ? (
             <FaBars
               className="text-black ml-64 cursor-pointer absolute right-5 md:left-5"

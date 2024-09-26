@@ -4,16 +4,12 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  LineChart,
-  Line,
-  Area,
 } from "recharts";
 import AreaChartsC from "../../components/share/AreaChartsC";
 import Profile from "../../components/share/Profile";
 import { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
-import Home from "../Home/Home";
-import DashboardUser from "../Home/DashboardUser";
+import { useSearchParams } from "react-router-dom";
+
 
 const data = [
   {
@@ -56,22 +52,29 @@ const data = [
   },
 ];
 
-const Dashboard = ({ sidebarToggle }) => {
+const Dashboard = () => {
+  const [params, setParams] = useSearchParams();
   const [barChartWidth, setBarChartWidth] = useState(400);
-  const location = useLocation();
 
-  console.log(location.pathname);
+  const checkState = params.get("currentState");
 
   useEffect(() => {
-    setBarChartWidth(sidebarToggle ? 320 : 400);
-  }, [sidebarToggle]);
+    if (checkState === "true" || null) {
+      setBarChartWidth(400);
+    } else {
+      setBarChartWidth(320);
+    }
+  }, [checkState]);
+
+  // Force re-render when checkState changes
+  useEffect(() => {
+    setParams({ currentState: checkState });
+  }, [checkState, setParams]);
+
   return (
     // change some margin left side for full divise
     <div className="lg:ml-60 lg:px-10 !overflow-hidden z-0 bg-gray-200">
       <div className="">
-        {location.pathname === "/product" ? (
-          <Profile />
-        ) : (
           <div className="">
             {/* title dashboard  */}
             <div className="">
@@ -104,7 +107,7 @@ const Dashboard = ({ sidebarToggle }) => {
             {/* chart bar staart here  */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5">
               <div className="bg-white rounded-md h-full md:h-[65vh] mx-3 md:mx-auto">
-                <AreaChartsC sidebarToggle={sidebarToggle} />
+                <AreaChartsC />
               </div>
               <div className="bg-white ml-0 xl:ml-1 rounded-md h-full md:h-[65vh] mx-3 md:mx-auto">
                 <BarChart
@@ -127,13 +130,11 @@ const Dashboard = ({ sidebarToggle }) => {
                 </BarChart>
               </div>
               <div className="bg-white rounded-md h-full md:h-[65vh] mx-3 md:mx-auto">
-                <AreaChartsC sidebarToggle={sidebarToggle} />
+                <AreaChartsC />
               </div>
             </div>
             <Profile />
           </div>
-        )}
-       
       </div>
     </div>
   );

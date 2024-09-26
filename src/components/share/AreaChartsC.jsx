@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   Area,
   AreaChart,
@@ -8,12 +9,31 @@ import {
   YAxis,
 } from "recharts";
 
-const AreaChartsC = ({ sidebarToggle }) => {
+const AreaChartsC = () => {
+  // const [barChartWidth, setBarChartWidth] = useState(400);
+
+  // useEffect(() => {
+  //   setBarChartWidth(sidebarToggle ? 320 : 400);
+  // }, [sidebarToggle]);
+
+  const [params, setParams] = useSearchParams();
   const [barChartWidth, setBarChartWidth] = useState(400);
 
+  const checkState = params.get("currentState");
+
   useEffect(() => {
-    setBarChartWidth(sidebarToggle ? 320 : 400);
-  }, [sidebarToggle]);
+    if (checkState === "true") {
+      setBarChartWidth(400);
+    } else {
+      setBarChartWidth(320);
+    }
+  }, [checkState]);
+
+  // Force re-render when checkState changes
+  useEffect(() => {
+    setParams({ currentState: checkState });
+  }, [checkState, setParams]);
+
   const data = [
     {
       name: "  A",
