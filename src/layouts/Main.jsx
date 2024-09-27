@@ -1,7 +1,6 @@
 import Sidebar from "../components/Sidebar/Sidebar";
 import Navbar from "../components/Navbar/Navbar";
 import { useState } from "react";
-import Dashboard from "../pages/Dashboard/Dashboard";
 import { Outlet } from "react-router-dom";
 
 const Main = () => {
@@ -19,7 +18,6 @@ const Main = () => {
               setSidebarToggle={setSidebarToggle}
             />
           </div>
-          {/* <Dashboard /> */}
           <div className="lg:ml-60 px-3 lg:px-10">
             <Outlet />
           </div>

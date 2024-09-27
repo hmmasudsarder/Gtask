@@ -4,7 +4,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 import 'aos/dist/aos.css'; 
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Aos from "aos";
@@ -13,7 +13,7 @@ import Aos from "aos";
 const User = () => {
   const [open, setOpen] = useState(!true);
   const navigate = useNavigate();
-  const location = useLocation();
+
 
 
   const handleLoginClick = () => {

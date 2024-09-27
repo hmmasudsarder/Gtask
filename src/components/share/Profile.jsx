@@ -1,11 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
 const Profile = () => {
-  const [tableData, setTableData] = useState([]);
-
   const token = localStorage.getItem("token");
   console.log(token);
   const { data: sms = [] } = useQuery({
@@ -22,28 +19,11 @@ const Profile = () => {
       return data;
     },
   });
-  setTableData(sms?.results)
 
-  useEffect(() => {
-    // Replace this with your actual image processing logic
-    // For demonstration, I'll use a hardcoded array
-    const data = [
-      { SI: 1, Name: "JohnDoe1", Category: "Web Development", Gender: "male" },
-      {
-        SI: 2,
-        Name: "JohnDoe2",
-        Category: "Mobile App Development",
-        Gender: "female",
-      },
-      { SI: 3, Name: "JohnDoe3", Category: "Web Development", Gender: "male" },
-      { SI: 4, Name: "JohnDoe4", Category: "UI/UX Design", Gender: "female" },
-    ];
-    setTableData(data);
-  }, []);
   return (
     <div className="">
       <div className="">
-        <div data-aos="fade-down" className="mt-8">
+        <div data-aos="" className="mt-8">
           <div className="space-y-2">
             <h1 className="text-xl">Home Page</h1>
             <p className="text-primary">Home</p>
@@ -69,15 +49,15 @@ const Profile = () => {
                   <th className="text-start pl-4 py-5">SI</th>
                   <th className="text-start pl-4 py-5">Image</th>
                   <th className="text-start pl-4 py-5">Name</th>
-                  <th className="text-start pl-4 py-5">Category</th>
-                  <th className="text-start pl-4 py-5">Gender</th>
+                  <th className="text-start pl-4 py-5">Organization</th>
+                  <th className="text-start pl-4 py-5">Email</th>
                   <th className="text-start pl-4 py-5">Action</th>
                 </tr>
               </thead>
               <tbody className="bg-white shadow-lg">
-                {tableData.map((item, index) => (
-                  <tr key={index}>
-                    <td className="border-b-[1px] px-4 py-6">{item.SI}</td>
+                {sms?.results?.map((item, index) => (
+                  <tr key={item.id}>
+                    <td className="border-b-[1px] px-4 py-6">{index +1}</td>
                     <td className="border-b-[1px] px-4 py-6">
                       <img
                         src="https://www.vhv.rs/dpng/d/15-155087_dummy-image-of-user-hd-png-download.png"
@@ -85,11 +65,13 @@ const Profile = () => {
                         alt=""
                       />
                     </td>
-                    <td className="border-b-[1px] px-4 py-6">{item.Name}</td>
                     <td className="border-b-[1px] px-4 py-6">
-                      {item.Category}
+                      {item.username}
                     </td>
-                    <td className="border-b-[1px] px-4 py-6">{item.Gender}</td>{" "}
+                    <td className="border-b-[1px] px-4 py-6">
+                      {item.organization}
+                    </td>
+                    <td className="border-b-[1px] px-4 py-6">{item.email}</td>{" "}
                     <td className="border-b-[1px] px-4 py-6">
                       {/* Replace with your action buttons */}
                     </td>

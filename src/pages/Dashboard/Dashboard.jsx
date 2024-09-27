@@ -1,15 +1,9 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 import AreaChartsC from "../../components/share/AreaChartsC";
-import Profile from "../../components/share/Profile";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const data = [
   {
@@ -53,6 +47,21 @@ const data = [
 ];
 
 const Dashboard = () => {
+  const token = localStorage.getItem("token");
+  const { data: sms = [] } = useQuery({
+    queryKey: ["sms"],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        " http://52.74.26.144:9000/client/apiClient/list/",
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      return data;
+    },
+  });
   const [params, setParams] = useSearchParams();
   const [barChartWidth, setBarChartWidth] = useState(400);
 
@@ -73,8 +82,9 @@ const Dashboard = () => {
 
   return (
     // change some margin left side for full divise
-    <div data-aos="fade-down" className=" !overflow-hidden z-0">
-      <div className="">
+    <div className=" bg-gray-50">
+      <div data-aos="fade-down" className="z-0">
+        <div className="">
           <div className="">
             {/* title dashboard  */}
             <div className="">
@@ -82,21 +92,30 @@ const Dashboard = () => {
             </div>
             {/* dashboard card desing */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-3 md:mx-auto">
-              <div data-aos="fade-left" className="bg-gradient-to-r from-purple-400 to-violet-100 h-36 rounded-lg">
+              <div
+                data-aos="fade-left"
+                className="bg-gradient-to-r from-purple-400 to-violet-100 h-36 rounded-lg"
+              >
                 <div className="text-white text-center mt-5 space-y-1">
                   <h2 className="text-4xl font-semibold">Weekly Sales</h2>
                   <p className="">$ 500000</p>
                   <p className="">Increase by 30%</p>
                 </div>
               </div>
-              <div data-aos="fade-up" className="bg-gradient-to-r from-violet-400 to-violet-100 h-36 rounded-lg">
+              <div
+                data-aos="fade-up"
+                className="bg-gradient-to-r from-violet-400 to-violet-100 h-36 rounded-lg"
+              >
                 <div className="text-white text-center mt-5 space-y-1">
                   <h2 className="text-4xl font-semibold">Monthly Sales</h2>
                   <p className="">$ 500000</p>
                   <p className="">Increase by 20%</p>
                 </div>
               </div>
-              <div data-aos="fade-left" className="bg-gradient-to-r from-purple-400 to-violet-100 h-36 rounded-lg">
+              <div
+                data-aos="fade-left"
+                className="bg-gradient-to-r from-purple-400 to-violet-100 h-36 rounded-lg"
+              >
                 <div className="text-white text-center mt-5 space-y-1">
                   <h2 className="text-4xl font-semibold">Yearly Sales</h2>
                   <p className="">$ 500000</p>
@@ -133,8 +152,50 @@ const Dashboard = () => {
                 <AreaChartsC />
               </div>
             </div>
-            <Profile />
+            <div className="flex flex-row flex-nowrap overflow-x-scroll md:overflow-hidden scroll-smooth">
+              <div className=" container mx-auto mt-10 pb-20 overflow-x-auto md:overflow-hidden">
+                <table className="table-auto border-collapse border-gray-200 w-full">
+                  <thead className="bg-purple-100 rounded py-24">
+                    <tr className="rounded">
+                      <th className="text-start pl-4 py-5">SI</th>
+                      <th className="text-start pl-4 py-5">Image</th>
+                      <th className="text-start pl-4 py-5">Name</th>
+                      <th className="text-start pl-4 py-5">Organization</th>
+                      <th className="text-start pl-4 py-5">Email</th>
+                      <th className="text-start pl-4 py-5">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white shadow-lg">
+                    {sms?.results?.map((item, index) => (
+                      <tr key={item.id}>
+                        <td className="border-b-[1px] px-4 py-6">{index+1}</td>
+                        <td className="border-b-[1px] px-4 py-6">
+                          <img
+                            src="https://www.vhv.rs/dpng/d/15-155087_dummy-image-of-user-hd-png-download.png"
+                            className="w-12 h-12 rounded-full"
+                            alt=""
+                          />
+                        </td>
+                        <td className="border-b-[1px] px-4 py-6">
+                          {item.username}
+                        </td>
+                        <td className="border-b-[1px] px-4 py-6">
+                          {item.organization}
+                        </td>
+                        <td className="border-b-[1px] px-4 py-6">
+                          {item.email}
+                        </td>{" "}
+                        <td className="border-b-[1px] px-4 py-6">
+                          {/* Replace with your action buttons */}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
+        </div>
       </div>
     </div>
   );
