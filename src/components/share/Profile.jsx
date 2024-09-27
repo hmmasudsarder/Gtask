@@ -1,15 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
+import { Dropdown, Menu, Space } from "antd";
 import axios from "axios";
+import { BsThreeDots } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import MenuItem from "antd/es/menu/MenuItem";
 
 const Profile = () => {
   const token = localStorage.getItem("token");
   console.log(token);
-  const { data: sms = [] } = useQuery({
+  const { data: sms = [], refetch } = useQuery({
     queryKey: ["sms"],
     queryFn: async () => {
       const { data } = await axios.get(
-        " http://52.74.26.144:9000/client/apiClient/list/",
+        "http://52.74.26.144:9000/client/apiClient/list/",
         {
           headers: {
             Authorization: `Token ${token}`,
@@ -20,6 +24,25 @@ const Profile = () => {
     },
   });
 
+  const handleDropdownClick = async (itemId) => {
+    try {
+      const response = await axios.delete(
+        `http://52.74.26.144:9000/client/apiClient/${itemId}/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`, // Use "Bearer" if your API expects it
+          },
+        }
+      );
+
+      console.log(response.data);
+      refetch();
+    } catch (error) {
+      console.error(error);
+      alert("Failed to fetch single data");
+    }
+  };
   return (
     <div className="">
       <div className="">
@@ -57,7 +80,7 @@ const Profile = () => {
               <tbody className="bg-white shadow-lg">
                 {sms?.results?.map((item, index) => (
                   <tr key={item.id}>
-                    <td className="border-b-[1px] px-4 py-6">{index +1}</td>
+                    <td className="border-b-[1px] px-4 py-6">{index + 1}</td>
                     <td className="border-b-[1px] px-4 py-6">
                       <img
                         src="https://www.vhv.rs/dpng/d/15-155087_dummy-image-of-user-hd-png-download.png"
@@ -74,6 +97,30 @@ const Profile = () => {
                     <td className="border-b-[1px] px-4 py-6">{item.email}</td>{" "}
                     <td className="border-b-[1px] px-4 py-6">
                       {/* Replace with your action buttons */}
+                      {/* Dropdown menu */}
+                      <Dropdown
+                        overlay={
+                          <Menu>
+                            <MenuItem key="1" icon={<EditOutlined />}>
+                              Edit
+                            </MenuItem>
+                            <MenuItem
+                              key="2"
+                              icon={<DeleteOutlined />}
+                              onClick={() => handleDropdownClick(item.id)}
+                            >
+                              Delete
+                            </MenuItem>
+                          </Menu>
+                        }
+                        placement="bottomCenter"
+                      >
+                        <a>
+                          <Space>
+                            <BsThreeDots />
+                          </Space>
+                        </a>
+                      </Dropdown>
                     </td>
                   </tr>
                 ))}

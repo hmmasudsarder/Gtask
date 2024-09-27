@@ -1,70 +1,64 @@
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const [userEmail, setUserEmail] = useState(null)
+  const [userName, setUserName] = useState(null)
+  const [organizationName, setOrganizationName] = useState(null)
+  const navigate = useNavigate();
+
+  // checking if token is valid or not
   const token = localStorage.getItem("token");
-  // console.log(token);
-  const { data: sms = [] } = useQuery({
-    queryKey: ["sms"],
-    queryFn: async () => {
-      const { data } = await axios.post(
-        "http://52.74.26.144:9000/client/apiClient/create/",
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        }
-      );
-      return data;
-    },
-  });
-  console.log(sms?.results);
+  if (!token) {
+    return navigate("/login");
+  }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const email = form.elements.email.value;
-    const username = form.elements.username.value;
-    const organization = form.elements.organization.value;
-    console.log(email, username, organization);
-    const token = localStorage.getItem("token");
-    console.log("Token:", token);
-
-    if (!token) {
-      alert("Authorization token is missing. Please log in again.");
-      return;
-    }
-
-    try {
-      const response = await axios.post(
-        "http://52.74.26.144:9000/client/apiClient/create/", // Now using '/api' which will be proxied
-        {
-          email: email,
-          username: username,
-          organization: organization
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,  // Use "Bearer" if your API expects it
-          },
-          withCredentials: true
-        }
-      );
-
-      console.log("Data sent successfully", response.data);
-      form.reset(); // Reset the form after successful submission
-      alert("Data submitted successfully!");
-    } catch (error) {
-      console.error(
-        "Error sending data:",
-        error.response?.status,
-        error.response
-      );
-      alert("An error occurred while submitting the form.");
-    }
+  // handle email
+  const handleEmailChange = (e) => {
+    setUserEmail(e.target.value);
   };
+
+  // handle username
+  const handleUsernameChange = (e) => {
+    setUserName(e.target.value);
+  };
+
+  // handle organization
+  const handleOrganizationChange = (e) => {
+    setOrganizationName(e.target.value);
+  };
+
+
+  // handle post data submission
+  const handlePost = async() =>{
+    const email = userEmail;
+    const username = userName;
+    const organization = organizationName;
+    const postData = {
+      email: email,
+      username: username,
+      organization: organization,
+    }
+    await axios.post(
+      "http://52.74.26.144:9000/client/apiClient/create/", // Now using '/api' which will be proxied
+      postData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`, // Use "Bearer" if your API expects it
+        }
+      }
+    ).then((data)=>{
+      console.log("Data sent successfully", data);
+      navigate("/product")
+    }).catch((error)=>{
+      console.log("Error sending data", error);
+    })
+
+  }
+
   return (
     <div data-aos="fade-down" className="mt-8">
       <div className="space-y-2">
@@ -84,8 +78,8 @@ const Home = () => {
 
         <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
           <div className="modal-box">
-            <form
-              onSubmit={handleSubmit}
+            <div
+              // onSubmit={handleSubmit}
               className="space-y-6 ng-untouched ng-pristine ng-valid"
             >
               <div className="space-y-4">
@@ -94,6 +88,7 @@ const Home = () => {
                     Enter Your Office Email
                   </label>
                   <input
+                  onChange={handleEmailChange}
                     name="email"
                     type="email"
                     placeholder="Enter Your Email"
@@ -108,6 +103,7 @@ const Home = () => {
                     Enter Your Name
                   </label>
                   <input
+                  onChange={handleUsernameChange}
                     name="username"
                     type="text"
                     placeholder="Enter Your Name"
@@ -122,6 +118,7 @@ const Home = () => {
                     Enter Your Office Name
                   </label>
                   <input
+                  onChange={handleOrganizationChange}
                     name="organization"
                     type="text"
                     placeholder="Enter Your Office Name"
@@ -134,13 +131,14 @@ const Home = () => {
               </div>
               <div>
                 <button
-                  type="submit"
+                  onClick={handlePost}
+                  // type="submit"
                   className="bg-primary w-full rounded-md py-3 text-white"
                 >
                   Continue
                 </button>
               </div>
-            </form>
+            </div>
             <div className="modal-action">
               <form method="dialog">
                 {/* if there is a button in form, it will close the modal */}
