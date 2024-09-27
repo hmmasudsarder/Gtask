@@ -73,7 +73,7 @@ const Dashboard = () => {
 
   return (
     // change some margin left side for full divise
-    <div className=" !overflow-hidden z-0 bg-gray-50">
+    <div data-aos="fade-down" className=" !overflow-hidden z-0">
       <div className="">
           <div className="">
             {/* title dashboard  */}
@@ -82,21 +82,21 @@ const Dashboard = () => {
             </div>
             {/* dashboard card desing */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-3 md:mx-auto">
-              <div className="bg-gradient-to-r from-purple-400 to-violet-100 h-36 rounded-lg">
+              <div data-aos="fade-left" className="bg-gradient-to-r from-purple-400 to-violet-100 h-36 rounded-lg">
                 <div className="text-white text-center mt-5 space-y-1">
                   <h2 className="text-4xl font-semibold">Weekly Sales</h2>
                   <p className="">$ 500000</p>
                   <p className="">Increase by 30%</p>
                 </div>
               </div>
-              <div className="bg-gradient-to-r from-violet-400 to-violet-100 h-36 rounded-lg">
+              <div data-aos="fade-up" className="bg-gradient-to-r from-violet-400 to-violet-100 h-36 rounded-lg">
                 <div className="text-white text-center mt-5 space-y-1">
                   <h2 className="text-4xl font-semibold">Monthly Sales</h2>
                   <p className="">$ 500000</p>
                   <p className="">Increase by 20%</p>
                 </div>
               </div>
-              <div className="bg-gradient-to-r from-purple-400 to-violet-100 h-36 rounded-lg">
+              <div data-aos="fade-left" className="bg-gradient-to-r from-purple-400 to-violet-100 h-36 rounded-lg">
                 <div className="text-white text-center mt-5 space-y-1">
                   <h2 className="text-4xl font-semibold">Yearly Sales</h2>
                   <p className="">$ 500000</p>

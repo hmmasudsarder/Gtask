@@ -1,14 +1,39 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { Link} from "react-router-dom";
+// import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 
 const Login = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  const customerInfoMutation = useMutation({
-    mutationFn: async () => {
+  // const customerInfoMutation = useMutation({
+  //   mutationFn: async () => {
+  //     const response = await axios.post(
+  //       "http://52.74.26.144:9000/auth/login/",
+  //       {
+  //         username: username,
+  //         password: password,
+  //       }
+  //     );
+  //     console.log(response.data.token);
+  //     return response?.data;
+  //   },
+  //   onSuccess: (data) => {
+  //     localStorage.setItem("token", data?.token);
+  //   },
+  //   onError: (error) => {
+  //     console.log(error);
+  //   },
+  // });
+
+  // const handleClick = () => {
+  //   customerInfoMutation.mutate();
+  //   navigate("/")
+  // };
+
+  const handleClick = async () => {
+    try {
       const response = await axios.post(
         "http://52.74.26.144:9000/auth/login/",
         {
@@ -16,26 +41,22 @@ const Login = () => {
           password: password,
         }
       );
-      console.log(response.data.token);
-      return response?.data;
-    },
-    onSuccess: (data) => {
-      localStorage.setItem("token", data?.token);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
 
-  const handleClick = () => {
-    customerInfoMutation.mutate();
+      // Store the token in localStorage
+      localStorage.setItem("token", response.data.token);
+
+      // Navigate to home page
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Login failed:", error.message);
+      // Handle error (e.g., show error message to user)
+    }
   };
 
   const handleUserName = (e) => {
-    setUsername(e.target.value)
+    setUsername(e.target.value);
   };
   const handlePassword = (e) => {
-    // setPassword(value)
     setPassword(e.target.value);
   };
 
@@ -88,10 +109,8 @@ const Login = () => {
               />
             </div>
           </div>
-
           <div>
             <button
-              // type="submit"
               onClick={handleClick}
               className="bg-primary w-full rounded-md py-3 text-white"
             >

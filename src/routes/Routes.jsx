@@ -4,6 +4,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import Profile from "../components/share/Profile";
 import Login from "../pages/Login/Login";
 import DashboardUser from "../pages/Home/DashboardUser";
+import Home from "../pages/Home/Home";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/dashboard",
         element: <Dashboard />,
       },
       {

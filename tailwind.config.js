@@ -12,7 +12,7 @@ export default {
       },
       colors: {
         backText: "#222222",
-        primary: "#827EF5",
+        primary: "#ad73fa",
         secondary: "#9A54F8",
         darkOrange: "#A65132",
         grayText: "#999",

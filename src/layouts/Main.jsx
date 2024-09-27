@@ -20,7 +20,7 @@ const Main = () => {
             />
           </div>
           {/* <Dashboard /> */}
-          <div className="lg:ml-60 lg:px-10 bg-gray-50">
+          <div className="lg:ml-60 px-3 lg:px-10">
             <Outlet />
           </div>
         </div>
