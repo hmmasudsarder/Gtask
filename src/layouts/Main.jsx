@@ -1,8 +1,8 @@
-import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Navbar from "../components/Navbar/Navbar";
 import { useState } from "react";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import { Outlet } from "react-router-dom";
 
 const Main = () => {
   const [sidebarToggle, setSidebarToggle] = useState(true);
@@ -19,8 +19,10 @@ const Main = () => {
               setSidebarToggle={setSidebarToggle}
             />
           </div>
-          <Dashboard />
-          {/* <Outlet /> */}
+          {/* <Dashboard /> */}
+          <div className="lg:ml-60 lg:px-10 bg-gray-50">
+            <Outlet />
+          </div>
         </div>
         <div className="">
           <Sidebar sidebarToggle={sidebarToggle} />

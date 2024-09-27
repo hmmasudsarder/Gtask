@@ -1,7 +1,7 @@
 
 const DashboardUser = () => {
     return (
-        <div>
+        <div className="">
             DashboardUser Profile
         </div>
     );

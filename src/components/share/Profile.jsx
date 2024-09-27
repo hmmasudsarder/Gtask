@@ -19,8 +19,11 @@ const Profile = () => {
     setTableData(data);
   }, []);
   return (
-    <div id="product">
-      <div className="container mx-auto mt-10 pb-20 overflow-x-auto md:overflow-hidden">
+    <div
+      id="product"
+      className="flex flex-row flex-nowrap overflow-x-scroll scroll-smooth"
+    >
+      <div className=" container mx-auto mt-10 pb-20 overflow-x-auto md:overflow-hidden">
         <table className="table-auto border-collapse border-gray-200 w-full">
           <thead className="bg-purple-100 rounded py-24">
             <tr className="rounded">

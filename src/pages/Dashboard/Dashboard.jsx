@@ -59,7 +59,7 @@ const Dashboard = () => {
   const checkState = params.get("currentState");
 
   useEffect(() => {
-    if (checkState === "true" || null) {
+    if (checkState === "true" && "null") {
       setBarChartWidth(400);
     } else {
       setBarChartWidth(320);
@@ -73,12 +73,12 @@ const Dashboard = () => {
 
   return (
     // change some margin left side for full divise
-    <div className="lg:ml-60 lg:px-10 !overflow-hidden z-0 bg-gray-200">
+    <div className=" !overflow-hidden z-0 bg-gray-50">
       <div className="">
           <div className="">
             {/* title dashboard  */}
             <div className="">
-              <h2 className="text-xl font-semibold mt-4 mb-7">Dashboard</h2>
+              <h2 className="text-xl mt-4 mb-7">Dashboard</h2>
             </div>
             {/* dashboard card desing */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-3 md:mx-auto">

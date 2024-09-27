@@ -4,14 +4,16 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { VscChromeClose } from "react-icons/vsc";
 import User from "../share/User";
 import queryString from "query-string";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 const Navbar = ({ sidebarToggle, setSidebarToggle }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const handleOnClick = () => {
     let currentQuery = { currentState: sidebarToggle };
     const url = queryString.stringifyUrl({
-      url: "/",
+      url: `${location?.pathname}`,
       query: currentQuery,
     });
     navigate(url);
@@ -21,7 +23,7 @@ const Navbar = ({ sidebarToggle, setSidebarToggle }) => {
     <div className="">
       <div className="bg-white px-10 py-4 border-b-2 border-violet-100 flex justify-between duration-700 ease-in-out">
         {/* left site navbar icons title  */}
-        <div className="flex items-center" onClick={handleOnClick}>
+        <div className="flex items-center gap-5" onClick={handleOnClick}>
           {sidebarToggle ? (
             <FaBars
               className="text-black ml-64 cursor-pointer absolute right-5 md:left-5"
@@ -33,7 +35,7 @@ const Navbar = ({ sidebarToggle, setSidebarToggle }) => {
               className="text-black text-2xl font-extrabold right-5 md:ml-60 cursor-pointer absolute md:top-[30px] md:left-5"
             />
           )}
-          <span className="text-black text-xl -ml-4 md:ml-64 poppins">
+          <span className="text-black text-xl -ml-4 md:ml-[270px] poppins">
             Business Center
           </span>
         </div>

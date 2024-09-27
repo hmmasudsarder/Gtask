@@ -12,8 +12,8 @@ export default {
       },
       colors: {
         backText: "#222222",
-        primry: "#40282c",
-        secondary: "#fff",
+        primary: "#827EF5",
+        secondary: "#9A54F8",
         darkOrange: "#A65132",
         grayText: "#999",
         lightOrange: "#FFBF64",
