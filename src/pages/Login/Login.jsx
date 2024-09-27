@@ -41,10 +41,8 @@ const Login = () => {
           password: password,
         }
       );
-
       // Store the token in localStorage
       localStorage.setItem("token", response.data.token);
-
       // Navigate to home page
       window.location.href = "/";
     } catch (error) {
@@ -71,8 +69,6 @@ const Login = () => {
         </div>
         <div
           // onSubmit={handleSubmit}
-          noValidate=""
-          action=""
           className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-4">
@@ -119,7 +115,7 @@ const Login = () => {
               ) : (
                 "Continue"
               )} */}
-              Contanue
+              Continue
             </button>
           </div>
         </div>

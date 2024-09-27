@@ -18,10 +18,12 @@ export default {
         grayText: "#999",
         lightOrange: "#FFBF64",
         black: "#0D0D10",
-        chartBar:"blue",
+        chartBar: "blue",
         borderColor: "#F1F3F7"
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'),
+  ],
 }

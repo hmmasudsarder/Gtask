@@ -14,15 +14,13 @@ const User = () => {
   const [open, setOpen] = useState(!true);
   const navigate = useNavigate();
 
-
-
   const handleLoginClick = () => {
     navigate("/login");
-    console.log("click");
+    // console.log("click");
   };
 
   const token = localStorage.getItem("token")
-  console.log(token);
+  // console.log(token);
   const { data: sms = [] } = useQuery({
     queryKey: ["sms"],
     queryFn: async () => {
@@ -36,21 +34,6 @@ const User = () => {
   });
   console.log(sms?.results);  
 
-  // fetch('http://52.74.26.144:9000/client/bulkClient/list/?q=pocah', {
-  //   method: 'GET',
-  //   headers: {
-  //     Authorization: 'Bearer 11ac4faeccb7c1c05e7bc8c582c5f4a6a1862c64',
-  //   }
-  // })
-  //   .then(response => {
-  //     if (!response.ok) {
-  //       throw new Error('Unauthorized access');
-  //     }
-  //     return response.json();
-  //   })
-  //   .then(data => console.log(data))
-  //   .catch(error => console.error('Error:', error));
-    
     useEffect(() => {
       Aos.init();
     }, [])
