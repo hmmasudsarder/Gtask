@@ -5,6 +5,7 @@ import { FaBars } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import queryString from "query-string";
 import { useLocation, useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Navbar = ({ sidebarToggle, setSidebarToggle }) => {
   const navigate = useNavigate();
@@ -58,5 +59,10 @@ const Navbar = ({ sidebarToggle, setSidebarToggle }) => {
     </div>
   );
 };
+
+Navbar.propTypes = {
+  sidebarToggle: PropTypes.bool,
+  setSidebarToggle: PropTypes.bool,
+}
 
 export default Navbar;

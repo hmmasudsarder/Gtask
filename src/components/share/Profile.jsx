@@ -47,7 +47,8 @@ const Profile = () => {
     retry: 2,
     enabled: singleId ? true : false,
   });
-  console.log(singleDetails);
+  // get single data
+  // console.log(singleDetails);
   const handleDeletClick = async (itemId) => {
     try {
       const response = await axios.delete(
@@ -83,9 +84,7 @@ const Profile = () => {
     setOrganizationName(e.target.value);
   };
 
-  const handleSingleClick = (itemId) => {
-    setSingleId(itemId);
-  };
+  // handle edit user
   const handleEditClick = async (itemId) => {
     setSingleId(itemId);
     const email = userEmail || singleDetails?.email;
@@ -109,7 +108,7 @@ const Profile = () => {
       )
       .then((data) => {
         console.log("Data sent successfully", data);
-        navigate("/product");
+        navigate("/");
         refetch();
       })
       .catch((error) => {
@@ -181,7 +180,6 @@ const Profile = () => {
                               key="1"
                               icon={<EditOutlined />}
                               onClick={() => {
-                                handleSingleClick(item.id);
                                 document
                                   .getElementById(`my_modal_${item?.id}`)
                                   .showModal();

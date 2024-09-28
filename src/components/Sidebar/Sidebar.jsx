@@ -1,33 +1,34 @@
 import { Dropdown, Space } from "antd";
 import { FaRegUser } from "react-icons/fa";
 import { GoHome } from "react-icons/go";
-import { RiArrowRightSLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
-import { DownOutlined, SettingOutlined } from "@ant-design/icons";
+import { DownOutlined } from "@ant-design/icons";
+import PropTypes from "prop-types";
 
 const Sidebar = ({ sidebarToggle }) => {
   const items = [
     {
       label: (
-        <Link
-          className="flex items-center gap-2 px-4 py-2 rounded hover:bg-violet-200 hover:text-violet-600"
-          to="/product"
-        >
-          Profile
-        </Link>
+        <li className="rounded hover:bg-violet-200 hover:text-violet-600 px-10">
+          <Link to="/product" className="text-base ">
+            <FaRegUser className="inline-block w-5 h-4 -mt-2 mr-[10px]" />
+            Profile
+          </Link>
+        </li>
       ),
       key: "0",
     },
     {
-      label: <Link to="/user">User</Link>,
+      label: (
+        <li className="rounded hover:bg-violet-200 hover:text-violet-600 px-10">
+          <Link to="/user" className="text-base">
+            <GoHome className="inline-block w-5 h-5 -mt-2 mr-[6px]" /> {" "}
+            User
+          </Link>
+        </li>
+      ),
       key: "1",
-    },
-    {
-      key: "4",
-      label: "Settings",
-      icon: <SettingOutlined />,
-      extra: "⌘S",
     },
   ];
   return (
@@ -54,26 +55,19 @@ const Sidebar = ({ sidebarToggle }) => {
           </li>
           <li className="rounded hover:bg-violet-200 hover:text-violet-600 p-3">
             <Link to="/product" className="text-base">
-              <FaRegUser className="inline-block w-5 h-5 -mt-2 mr-[6px]" />
-              Profile{" "}
-              <RiArrowRightSLine className="inline-block w-5 h-5 -mt-1 mr-[6px]" />
-            </Link>
-          </li>
-
-          <li className="rounded hover:bg-violet-200 hover:text-violet-600 p-3">
-            <Link to="/product" className="text-base">
               <Dropdown
                 menu={{
                   items,
                 }}
+                placement="bottomLeft"
                 trigger={["click"]}
               >
-                <a onClick={(e) => e.preventDefault()}>
+                <Link to="/product" onClick={(e) => e.preventDefault()}>
                   <Space className="">
                     <FaRegUser className="inline-block w-5 h-5 -mt-2 mr-[6px]" />
                     Profile <DownOutlined />
                   </Space>
-                </a>
+                </Link>
               </Dropdown>
             </Link>
           </li>
@@ -88,6 +82,10 @@ const Sidebar = ({ sidebarToggle }) => {
       </div>
     </div>
   );
+};
+
+Sidebar.propTypes = {
+  sidebarToggle: PropTypes.bool,
 };
 
 export default Sidebar;

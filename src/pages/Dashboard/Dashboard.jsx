@@ -47,9 +47,10 @@ const data = [
 ];
 
 const Dashboard = () => {
+  const [params, setParams] = useSearchParams();
+  const [barChartWidth, setBarChartWidth] = useState(400);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  
 
   const { data: sms = [] } = useQuery({
     queryKey: ["sms"],
@@ -65,11 +66,9 @@ const Dashboard = () => {
       return data;
     },
   });
-  const [params, setParams] = useSearchParams();
-  const [barChartWidth, setBarChartWidth] = useState(400);
 
   const checkState = params.get("currentState");
-
+  // thsi for barchart width manuali
   useEffect(() => {
     if (checkState === "true" && "null") {
       setBarChartWidth(400);
