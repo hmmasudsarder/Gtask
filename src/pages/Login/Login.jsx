@@ -1,36 +1,11 @@
-import { FcGoogle } from "react-icons/fc";
 import { Link} from "react-router-dom";
-// import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 
 const Login = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  // const customerInfoMutation = useMutation({
-  //   mutationFn: async () => {
-  //     const response = await axios.post(
-  //       "http://52.74.26.144:9000/auth/login/",
-  //       {
-  //         username: username,
-  //         password: password,
-  //       }
-  //     );
-  //     console.log(response.data.token);
-  //     return response?.data;
-  //   },
-  //   onSuccess: (data) => {
-  //     localStorage.setItem("token", data?.token);
-  //   },
-  //   onError: (error) => {
-  //     console.log(error);
-  //   },
-  // });
-
-  // const handleClick = () => {
-  //   customerInfoMutation.mutate();
-  //   navigate("/")
-  // };
+  
 
   const handleClick = async () => {
     try {
@@ -120,7 +95,7 @@ const Login = () => {
           </div>
         </div>
         <p className="px-6 text-sm text-center text-gray-400 my-2">
-          Don't have an account?
+          Do not have an account?
           <Link
             to="/login"
             className="hover:underline hover:text-rose-500 text-gray-600"

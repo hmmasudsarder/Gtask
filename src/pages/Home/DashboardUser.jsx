@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const DashboardUser = () => {
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
   console.log(token);
   const { data: sms = [] } = useQuery({
@@ -19,6 +21,9 @@ const DashboardUser = () => {
       return data;
     },
   });
+  if (!token) {
+    return navigate("/login");
+  }
   return (
     <div className="">
       <div data-aos="fade-down" className="mt-8">

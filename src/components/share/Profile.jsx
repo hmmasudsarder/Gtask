@@ -15,6 +15,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const [singleId, setSingleId] = useState(null);
   const token = localStorage.getItem("token");
+
   const { data: sms = [], refetch } = useQuery({
     queryKey: ["sms"],
     queryFn: async () => {
@@ -86,7 +87,7 @@ const Profile = () => {
     setSingleId(itemId);
   };
   const handleEditClick = async (itemId) => {
-    setSingleId(itemId)
+    setSingleId(itemId);
     const email = userEmail || singleDetails?.email;
     const username = userName || singleDetails?.name;
     const organization = organizationName || singleDetails?.organization;
@@ -115,6 +116,9 @@ const Profile = () => {
         console.log("Error sending data", error);
       });
   };
+  if (!token) {
+    return navigate("/login");
+  }
   return (
     <div className="">
       <div className="">

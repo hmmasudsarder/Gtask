@@ -1,7 +1,7 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 import AreaChartsC from "../../components/share/AreaChartsC";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -47,7 +47,10 @@ const data = [
 ];
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  
+
   const { data: sms = [] } = useQuery({
     queryKey: ["sms"],
     queryFn: async () => {
@@ -79,6 +82,9 @@ const Dashboard = () => {
   useEffect(() => {
     setParams({ currentState: checkState });
   }, [checkState, setParams]);
+  if (!token) {
+    return navigate("/login");
+  }
 
   return (
     // change some margin left side for full divise
@@ -168,7 +174,9 @@ const Dashboard = () => {
                   <tbody className="bg-white shadow-lg">
                     {sms?.results?.map((item, index) => (
                       <tr key={item.id}>
-                        <td className="border-b-[1px] px-4 py-6">{index+1}</td>
+                        <td className="border-b-[1px] px-4 py-6">
+                          {index + 1}
+                        </td>
                         <td className="border-b-[1px] px-4 py-6">
                           <img
                             src="https://www.vhv.rs/dpng/d/15-155087_dummy-image-of-user-hd-png-download.png"
