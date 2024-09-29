@@ -5,7 +5,7 @@ import { useState } from "react";
 const Login = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  
+  // "https://lovely-trifle-03cc29.netlify.app/auth/login/",http://52.74.26.144:9000
 
   const handleClick = async () => {
     try {

@@ -115,6 +115,36 @@ const Profile = () => {
         console.log("Error sending data", error);
       });
   };
+
+  // handle post user
+  const handlePost = async () => {
+    const email = userEmail;
+    const username = userName;
+    const organization = organizationName;
+    const postData = {
+      email: email,
+      username: username,
+      organization: organization,
+    };
+    await axios
+      .post(
+        "http://52.74.26.144:9000/client/apiClient/create/", // Now using '/api' which will be proxied
+        postData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`, // Use "Bearer" if your API expects it
+          },
+        }
+      )
+      .then((data) => {
+        console.log("Data sent successfully", data);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("Error sending data", error);
+      });
+  };
   if (!token) {
     return navigate("/login");
   }
@@ -130,9 +160,92 @@ const Profile = () => {
             <h2 className="text-xl flex items-center justify-between gap-4">
               All Product List
             </h2>
-            <button className="bg-primary flex items-center px-4 py-2 gap-4 rounded text-white">
+            <button
+              className="bg-primary flex items-center px-4 py-2 gap-4 rounded text-white"
+              onClick={() => document.getElementById("my_modal_5").showModal()}
+            >
               <FaPlus className="text-white" /> Add
             </button>
+            <dialog
+              id="my_modal_5"
+              className="modal modal-bottom sm:modal-middle"
+            >
+              <div className="modal-box">
+                <div
+                  // onSubmit={handleSubmit}
+                  className="space-y-6 ng-untouched ng-pristine ng-valid"
+                >
+                  <h2 className="text-xl text-primary">Add User</h2>
+                  <div className="space-y-4">
+                    <div>
+                      <label htmlFor="email" className="block mb-2 text-sm">
+                        Enter Your Office Email
+                      </label>
+                      <input
+                        onChange={handleEmailChange}
+                        name="email"
+                        type="email"
+                        placeholder="Enter Your Email"
+                        id="email"
+                        required
+                        className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
+                        data-temp-mail-org="0"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="username" className="block mb-2 text-sm">
+                        Enter Your Name
+                      </label>
+                      <input
+                        onChange={handleUsernameChange}
+                        name="username"
+                        type="text"
+                        placeholder="Enter Your Name"
+                        id="username"
+                        required
+                        className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
+                        data-temp-mail-org="0"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="organization"
+                        className="block mb-2 text-sm"
+                      >
+                        Enter Your Office Name
+                      </label>
+                      <input
+                        onChange={handleOrganizationChange}
+                        name="organization"
+                        type="text"
+                        placeholder="Enter Your Office Name"
+                        id="organization"
+                        required
+                        className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
+                        data-temp-mail-org="0"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      onClick={handlePost}
+                      // type="submit"
+                      className="bg-primary w-full rounded-md py-3 text-white"
+                    >
+                      Continue
+                    </button>
+                  </div>
+                </div>
+                <div className="modal-action">
+                  <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                      X
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </dialog>
           </div>
         </div>
         <div
@@ -213,6 +326,9 @@ const Profile = () => {
                             // onSubmit={handleSubmit}
                             className="space-y-6 ng-untouched ng-pristine ng-valid"
                           >
+                            <h2 className="text-xl text-center font-bold">
+                              Edit Client
+                            </h2>
                             <div className="space-y-4">
                               <div>
                                 <label
@@ -277,7 +393,7 @@ const Profile = () => {
                                 onClick={() => handleEditClick(item?.id)}
                                 className="bg-primary w-full rounded-md py-3 text-white"
                               >
-                                Continue
+                                Update
                               </button>
                             </div>
                           </div>

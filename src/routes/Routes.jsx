@@ -4,7 +4,8 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import Profile from "../components/share/Profile";
 import Login from "../pages/Login/Login";
 import DashboardUser from "../pages/Home/DashboardUser";
-import Home from "../pages/Home/Home";
+import Devise from "../pages/Devise/Devise";
+import Status from "../pages/Status/Status";
 
 export const router = createBrowserRouter([
   {
@@ -18,11 +19,15 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Dashboard />,
       },
       {
-        path: "/dashboard",
-        element: <Dashboard />,
+        path: "/devise",
+        element: <Devise />,
+      },
+      {
+        path: "/status",
+        element: <Status />,
       },
       {
         path: "/product",
