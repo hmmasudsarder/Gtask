@@ -3,7 +3,11 @@ import AreaChartsC from "../../components/share/AreaChartsC";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { Dropdown, Menu, Space } from "antd";
+import MenuItem from "antd/es/menu/MenuItem";
+import { BsThreeDots } from "react-icons/bs";
 
 const data = [
   {
@@ -54,9 +58,13 @@ const Dashboard = () => {
   const [params, setParams] = useSearchParams();
   const [barChartWidth, setBarChartWidth] = useState(400);
   const navigate = useNavigate();
+  const [userEmail, setUserEmail] = useState(null);
+  const [userName, setUserName] = useState(null);
+  const [organizationName, setOrganizationName] = useState(null);
+  const [singleId, setSingleId] = useState(null);
   const token = localStorage.getItem("token");
 
-  const { data: sms = [] } = useQuery({
+  const { data: sms = [], refetch } = useQuery({
     queryKey: ["sms"],
     queryFn: async () => {
       const { data } = await axios.get(
@@ -69,6 +77,23 @@ const Dashboard = () => {
       );
       return data;
     },
+  });
+
+  const { data: singleDetails } = useQuery({
+    queryKey: ["singleDetails", singleId],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `http://52.74.26.144:9000/client/apiClient/${singleId}/`,
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      return data;
+    },
+    retry: 2,
+    enabled: singleId ? true : false,
   });
 
   const checkState = params.get("currentState");
@@ -88,6 +113,77 @@ const Dashboard = () => {
   if (!token) {
     return navigate("/login");
   }
+
+ 
+
+  // handle Email
+  const handleEmailChange = (e) => {
+    setUserEmail(e.target.value);
+  };
+
+  
+  // handle username
+  const handleUsernameChange = (e) => {
+    setUserName(e.target.value);
+  };
+
+  // handle organization
+  const handleOrganizationChange = (e) => {
+    setOrganizationName(e.target.value);
+  };
+
+  // handle edit user
+  const handleEditClick = async (itemId) => {
+    setSingleId(itemId);
+    const email = userEmail || singleDetails?.email;
+    const username = userName || singleDetails?.name;
+    const organization = organizationName || singleDetails?.organization;
+    const postData = {
+      email: email,
+      username: username,
+      organization: organization,
+    };
+    await axios
+      .patch(
+        `http://52.74.26.144:9000/client/apiClient/${itemId}/`, // Now using '/api' which will be proxied
+        postData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`, // Use "Bearer" if your API expects it
+          },
+        }
+      )
+      .then((data) => {
+        console.log("Data sent successfully", data);
+        navigate("/");
+        refetch();
+      })
+      .catch((error) => {
+        console.log("Error sending data", error);
+      });
+  };
+
+  // handle delete 
+  const handleDeletClick = async (itemId) => {
+    try {
+      const response = await axios.delete(
+        `http://52.74.26.144:9000/client/apiClient/${itemId}/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`, // Use "Bearer" if your API expects it
+          },
+        }
+      );
+
+      console.log(response.data);
+      refetch();
+    } catch (error) {
+      console.error(error);
+      alert("Failed to fetch single data");
+    }
+  };
 
   return (
     // change some margin left side for full divise
@@ -161,7 +257,11 @@ const Dashboard = () => {
                 <AreaChartsC />
               </div>
             </div>
-            <div className="flex flex-row flex-nowrap overflow-x-scroll md:overflow-hidden scroll-smooth">
+            <div
+              data-aos="fade-down"
+              id="product"
+              className="flex flex-row flex-nowrap overflow-x-scroll scroll-smooth"
+            >
               <div className=" container mx-auto mt-10 pb-20 overflow-x-auto md:overflow-hidden">
                 <table className="table-auto border-collapse border-gray-200 w-full">
                   <thead className="bg-purple-100 rounded py-24">
@@ -198,6 +298,128 @@ const Dashboard = () => {
                         </td>{" "}
                         <td className="border-b-[1px] px-4 py-6">
                           {/* Replace with your action buttons */}
+                          {/* Dropdown menu */}
+                          <Dropdown
+                            overlay={
+                              <Menu>
+                                <MenuItem
+                                  key="1"
+                                  icon={<EditOutlined />}
+                                  onClick={() => {
+                                    document
+                                      .getElementById(`my_modal_${item?.id}`)
+                                      .showModal();
+                                  }}
+                                >
+                                  Edit
+                                </MenuItem>
+                                <MenuItem
+                                  key="2"
+                                  icon={<DeleteOutlined />}
+                                  onClick={() => handleDeletClick(item.id)}
+                                >
+                                  Delete
+                                </MenuItem>
+                              </Menu>
+                            }
+                            placement="bottomCenter"
+                          >
+                            <a>
+                              <Space>
+                                <BsThreeDots />
+                              </Space>
+                            </a>
+                          </Dropdown>
+                          <dialog
+                            id={`my_modal_${item?.id}`}
+                            className="modal modal-bottom sm:modal-middle"
+                          >
+                            <div className="modal-box">
+                              <div
+                                // onSubmit={handleSubmit}
+                                className="space-y-6 ng-untouched ng-pristine ng-valid"
+                              >
+                                <h2 className="text-xl text-center font-bold">
+                                  Edit Client
+                                </h2>
+                                <div className="space-y-4">
+                                  <div>
+                                    <label
+                                      htmlFor="email"
+                                      className="block mb-2 text-sm"
+                                    >
+                                      Enter Your Office Email
+                                    </label>
+                                    <input
+                                      onChange={handleEmailChange}
+                                      name="email"
+                                      defaultValue={item?.email}
+                                      type="email"
+                                      placeholder="Enter Your Email"
+                                      id="email"
+                                      required
+                                      className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
+                                      data-temp-mail-org="0"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label
+                                      htmlFor="username"
+                                      className="block mb-2 text-sm"
+                                    >
+                                      Enter Your Name
+                                    </label>
+                                    <input
+                                      onChange={handleUsernameChange}
+                                      name="username"
+                                      defaultValue={item?.username}
+                                      type="text"
+                                      placeholder="Enter Your Name"
+                                      id="username"
+                                      required
+                                      className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
+                                      data-temp-mail-org="0"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label
+                                      htmlFor="organization"
+                                      className="block mb-2 text-sm"
+                                    >
+                                      Enter Your Office Name
+                                    </label>
+                                    <input
+                                      onChange={handleOrganizationChange}
+                                      name="organization"
+                                      defaultValue={item?.organization}
+                                      type="text"
+                                      placeholder="Enter Your Office Name"
+                                      id="organization"
+                                      required
+                                      className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
+                                      data-temp-mail-org="0"
+                                    />
+                                  </div>
+                                </div>
+                                <div>
+                                  <button
+                                    onClick={() => handleEditClick(item?.id)}
+                                    className="bg-primary w-full rounded-md py-3 text-white"
+                                  >
+                                    Update
+                                  </button>
+                                </div>
+                              </div>
+                              <div className="modal-action">
+                                <form method="dialog">
+                                  {/* if there is a button in form, it will close the modal */}
+                                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                                    X
+                                  </button>
+                                </form>
+                              </div>
+                            </div>
+                          </dialog>
                         </td>
                       </tr>
                     ))}

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import { HiOutlineArrowPathRoundedSquare } from "react-icons/hi2";
-import { GiLevelThreeAdvanced } from "react-icons/gi";
+// import { GiLevelThreeAdvanced } from "react-icons/gi";
 
 const Sidebar = ({ sidebarToggle }) => {
   const items = [
@@ -72,12 +72,12 @@ const Sidebar = ({ sidebarToggle }) => {
               Devise
             </Link>
           </li>
-          <li className="rounded hover:bg-violet-200 hover:text-violet-600 p-3">
+          {/* <li className="rounded hover:bg-violet-200 hover:text-violet-600 p-3">
             <Link to="/status" className="text-base">
               <GiLevelThreeAdvanced className="inline-block w-5 h-5 -mt-2 mr-[6px]" />
               Status
             </Link>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

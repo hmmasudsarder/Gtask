@@ -9,11 +9,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Devise = () => {
-  const [userEmail, setUserEmail] = useState(null);
+  const [pass, setUserEmail] = useState(null);
   const [userName, setUserName] = useState(null);
-  const [organizationName, setOrganizationName] = useState(null);
+  const [deviseN, setOrganizationName] = useState(null);
   const navigate = useNavigate();
-  const [singleId, setSingleId] = useState(null);
   const token = localStorage.getItem("token");
 
   const { data: sms = [], refetch } = useQuery({
@@ -70,9 +69,9 @@ const Devise = () => {
 
   // handle edit user
   const handleEditClick = async (itemId) => {
-    const password = userEmail;
+    const password = pass;
     const username = userName;
-    const deviceName = organizationName;
+    const deviceName = deviseN;
     const postData = {
       password: password,
       username: username,
@@ -101,9 +100,9 @@ const Devise = () => {
 
   // handle post user
   const handlePost = async () => {
-    const password = userEmail;
+    const password = pass;
     const username = userName;
-    const deviceName = organizationName;
+    const deviceName = deviseN;
     const postData = {
       password: password,
       username: username,
@@ -158,18 +157,23 @@ const Devise = () => {
                   // onSubmit={handleSubmit}
                   className="space-y-6 ng-untouched ng-pristine ng-valid"
                 >
-                  <h2 className="text-xl text-primary">Add Devise</h2>
+                  <h2 className="text-xl text-center font-bold">
+                    Added Devise
+                  </h2>
                   <div className="space-y-4">
                     <div>
-                      <label htmlFor="email" className="block mb-2 text-sm">
-                        Devise Name
+                      <label
+                        htmlFor="deviceName"
+                        className="block mb-2 text-sm"
+                      >
+                        Enter Your Devise Name
                       </label>
                       <input
                         onChange={handleEmailChange}
-                        name="email"
-                        type="email"
+                        name="deviceName"
+                        type="text"
                         placeholder="Enter Your Email"
-                        id="email"
+                        id="deviceName"
                         required
                         className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
                         data-temp-mail-org="0"
@@ -177,7 +181,7 @@ const Devise = () => {
                     </div>
                     <div>
                       <label htmlFor="username" className="block mb-2 text-sm">
-                        Enter Your Name
+                        Edit Your Name
                       </label>
                       <input
                         onChange={handleUsernameChange}
@@ -191,18 +195,15 @@ const Devise = () => {
                       />
                     </div>
                     <div>
-                      <label
-                        htmlFor="organization"
-                        className="block mb-2 text-sm"
-                      >
+                      <label htmlFor="password" className="block mb-2 text-sm">
                         Enter Your Password
                       </label>
                       <input
                         onChange={handleOrganizationChange}
-                        name="organization"
+                        name="password"
                         type="text"
                         placeholder="Enter Your Office Name"
-                        id="organization"
+                        id="password"
                         required
                         className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
                         data-temp-mail-org="0"
@@ -212,10 +213,9 @@ const Devise = () => {
                   <div>
                     <button
                       onClick={handlePost}
-                      // type="submit"
                       className="bg-primary w-full rounded-md py-3 text-white"
                     >
-                      Continue
+                      Update
                     </button>
                   </div>
                 </div>
@@ -243,8 +243,8 @@ const Devise = () => {
                   <th className="text-start pl-4 py-5">SI</th>
                   <th className="text-start pl-4 py-5">Image</th>
                   <th className="text-start pl-4 py-5">Name</th>
-                  <th className="text-start pl-4 py-5">deviceName</th>
                   <th className="text-start pl-4 py-5">password</th>
+                  <th className="text-start pl-4 py-5">deviceName</th>
                   <th className="text-start pl-4 py-5">Action</th>
                 </tr>
               </thead>
@@ -320,7 +320,7 @@ const Devise = () => {
                                   htmlFor="deviceName"
                                   className="block mb-2 text-sm"
                                 >
-                                  Enter Your Office Email
+                                  Edit Password
                                 </label>
                                 <input
                                   onChange={handleEmailChange}
@@ -339,7 +339,7 @@ const Devise = () => {
                                   htmlFor="username"
                                   className="block mb-2 text-sm"
                                 >
-                                  Enter Your Name
+                                  Edit Your Name
                                 </label>
                                 <input
                                   onChange={handleUsernameChange}
@@ -358,7 +358,7 @@ const Devise = () => {
                                   htmlFor="password"
                                   className="block mb-2 text-sm"
                                 >
-                                  Enter Your Office Name
+                                  Edit Your Divise Name
                                 </label>
                                 <input
                                   onChange={handleOrganizationChange}
