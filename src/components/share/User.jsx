@@ -3,41 +3,27 @@ import user from "../../assets/user.jpg";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
-import 'aos/dist/aos.css'; 
+import "aos/dist/aos.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Aos from "aos";
-
 
 const User = () => {
   const [open, setOpen] = useState(!true);
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const handleLoginClick = () => {
     navigate("/login");
-    // console.log("click");
+    localStorage.removeItem("token");
   };
 
-  const token = localStorage.getItem("token")
-  // console.log(token);
-  const { data: sms = [] } = useQuery({
-    queryKey: ["sms"],
-    queryFn: async () => {
-      const { data } = await axios.get(" http://52.74.26.144:9000/client/apiClient/list/", {
-        headers: {
-          Authorization: `Token ${token}`,
-        }
-      });
-      return data;
-    },
-  });
-  console.log(sms?.results);  
+  useEffect(() => {
+    Aos.init();
+  }, []);
 
-    useEffect(() => {
-      Aos.init();
-    }, [])
-
+  if (!token) {
+    return navigate("/login");
+  }
   return (
     <div>
       <div className="relative" onClick={() => setOpen(!open)}>
@@ -52,20 +38,35 @@ const User = () => {
         </div>
       </div>
       {open && (
-        <div data-aos="zoom-in" className="bg-white p-4 w-44 rounded-lg shadow-lg absolute right-0 top-[65px] z-30 hover:scale-90">
+        <div
+          data-aos="zoom-in"
+          className="bg-white p-4 w-44 rounded-lg shadow-lg absolute right-0 top-[65px] z-30 hover:scale-90"
+        >
           <ul>
             <li className="p-1 text-start text-lg cursor-pointer flex items-center gap-4">
               <FaRegUser className="mt-1" /> Profile
             </li>
-            <li className="p-1 text-start text-lg cursor-pointer flex items-center gap-4">
-              <Link
-                to="/login"
-                onClick={handleLoginClick}
-                className="flex items-center gap-4"
-              >
-                <MdOutlineLogout className="mt-2" /> Log In
-              </Link>
-            </li>
+            {token ? (
+              <li className="p-1 text-start text-lg cursor-pointer flex items-center gap-4">
+                <Link
+                  to="/login"
+                  onClick={handleLoginClick}
+                  className="flex items-center gap-4"
+                >
+                  <MdOutlineLogout className="mt-2" /> Log Out
+                </Link>
+              </li>
+            ) : (
+              <li className="p-1 text-start text-lg cursor-pointer flex items-center gap-4">
+                <Link
+                  to="/login"
+                  onClick={handleLoginClick}
+                  className="flex items-center gap-4"
+                >
+                  <MdOutlineLogout className="mt-2" /> Log In
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       )}

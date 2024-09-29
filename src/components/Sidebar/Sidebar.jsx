@@ -5,8 +5,8 @@ import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
-// import { HiOutlineArrowPathRoundedSquare } from "react-icons/hi2";
-// import { GiLevelThreeAdvanced } from "react-icons/gi";
+import { HiOutlineArrowPathRoundedSquare } from "react-icons/hi2";
+import { GiLevelThreeAdvanced } from "react-icons/gi";
 
 const Sidebar = ({ sidebarToggle }) => {
   const items = [
@@ -25,7 +25,7 @@ const Sidebar = ({ sidebarToggle }) => {
       label: (
         <li className="rounded hover:bg-violet-200 hover:text-violet-600 px-10">
           <Link to="/user" className="text-base">
-            <GoHome className="inline-block w-5 h-5 -mt-2 mr-[6px]" /> User
+            <GoHome className="inline-block w-5 h-5 -mt-2 mr-[6px]" /> Bulk List
           </Link>
         </li>
       ),
@@ -66,7 +66,7 @@ const Sidebar = ({ sidebarToggle }) => {
               </Dropdown>
             </Link>
           </li>
-          {/* <li className="rounded hover:bg-violet-200 hover:text-violet-600 p-3">
+          <li className="rounded hover:bg-violet-200 hover:text-violet-600 p-3">
             <Link to="/devise" className="text-base">
               <HiOutlineArrowPathRoundedSquare className="inline-block w-5 h-5 -mt-2 mr-[6px]" />
               Devise
@@ -77,13 +77,7 @@ const Sidebar = ({ sidebarToggle }) => {
               <GiLevelThreeAdvanced className="inline-block w-5 h-5 -mt-2 mr-[6px]" />
               Status
             </Link>
-          </li> */}
-          {/* <li className="rounded hover:bg-violet-200 hover:text-violet-600 p-3">
-            <Link to="/" className="text-base">
-              <HiOutlineArrowPathRoundedSquare className="inline-block w-5 h-5 -mt-2 mr-[6px]" />
-              History
-            </Link>
-          </li> */}
+          </li>
         </ul>
       </div>
     </div>

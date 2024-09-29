@@ -22,20 +22,20 @@ export const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "/devise",
-        element: <Devise />,
-      },
-      {
-        path: "/status",
-        element: <Status />,
-      },
-      {
         path: "/product",
         element: <Profile />,
       },
       {
         path: "/user",
         element: <DashboardUser />,
+      },
+      {
+        path: "/devise",
+        element: <Devise />,
+      },
+      {
+        path: "/status",
+        element: <Status />,
       },
     ],
   },
