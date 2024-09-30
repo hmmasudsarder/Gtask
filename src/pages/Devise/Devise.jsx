@@ -90,7 +90,7 @@ const Devise = () => {
       )
       .then((data) => {
         console.log("Data sent successfully", data);
-        navigate("/");
+        navigate("/devise");
         refetch();
       })
       .catch((error) => {
@@ -121,7 +121,8 @@ const Devise = () => {
       )
       .then((data) => {
         console.log("Data sent successfully", data);
-        navigate("/");
+        navigate("/devise");
+        refetch();
       })
       .catch((error) => {
         console.log("Error sending data", error);
@@ -210,13 +211,16 @@ const Devise = () => {
                       />
                     </div>
                   </div>
-                  <div>
-                    <button
-                      onClick={handlePost}
-                      className="bg-primary w-full rounded-md py-3 text-white"
-                    >
-                      Update
-                    </button>
+                  <div className="modal-action">
+                    <form method="dialog">
+                      <button
+                        onClick={handlePost}
+                        method="dialog"
+                        className="bg-primary w-11/12 rounded-md py-3 text-white absolute left-5 bottom-2"
+                      >
+                        Update
+                      </button>
+                    </form>
                   </div>
                 </div>
                 <div className="modal-action">
@@ -373,13 +377,16 @@ const Devise = () => {
                                 />
                               </div>
                             </div>
-                            <div>
-                              <button
-                                onClick={() => handleEditClick(item?.id)}
-                                className="bg-primary w-full rounded-md py-3 text-white"
-                              >
-                                Update
-                              </button>
+                            <div className="modal-action">
+                              <form method="dialog">
+                                <button
+                                  onClick={() => handleEditClick(item?.id)}
+                                  method="dialog"
+                                  className="bg-primary w-11/12 rounded-md py-3 text-white absolute left-5 bottom-2"
+                                >
+                                  Update
+                                </button>
+                              </form>
                             </div>
                           </div>
                           <div className="modal-action">

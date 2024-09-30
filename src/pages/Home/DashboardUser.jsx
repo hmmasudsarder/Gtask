@@ -108,7 +108,7 @@ const DashboardUser = () => {
       )
       .then((data) => {
         console.log("Data sent successfully", data);
-        navigate("/product");
+        navigate("/user");
         refetch();
       })
       .catch((error) => {
@@ -139,7 +139,8 @@ const DashboardUser = () => {
       )
       .then((data) => {
         console.log("Data sent successfully", data);
-        navigate("/");
+        navigate("/user");
+        refetch();
       })
       .catch((error) => {
         console.log("Error sending data", error);
@@ -226,14 +227,16 @@ const DashboardUser = () => {
                     />
                   </div>
                 </div>
-                <div>
-                  <button method="dialog"
-                    onClick={handlePost}
-                    // type="submit"
-                    className="bg-primary w-full rounded-md py-3 text-white "
-                  >
-                    Update
-                  </button>
+                <div className="modal-action">
+                  <form method="dialog">
+                    <button
+                      onClick={handlePost}
+                      method="dialog"
+                      className="bg-primary w-11/12 rounded-md py-3 text-white absolute left-5 bottom-2"
+                    >
+                      Update
+                    </button>
+                  </form>
                 </div>
               </div>
               <div className="modal-action">
@@ -383,13 +386,16 @@ const DashboardUser = () => {
                               />
                             </div>
                           </div>
-                          <div>
-                            <button
-                              onClick={() => handleEditClick(item?.id)}
-                              className="bg-primary w-full rounded-md py-3 text-white"
-                            >
-                              Continue
-                            </button>
+                          <div className="modal-action">
+                            <form method="dialog">
+                              <button
+                                onClick={() => handleEditClick(item?.id)}
+                                method="dialog"
+                                className="bg-primary w-11/12 rounded-md py-3 text-white absolute left-5 bottom-2"
+                              >
+                                Update
+                              </button>
+                            </form>
                           </div>
                         </div>
                         <div className="modal-action">

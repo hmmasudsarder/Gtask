@@ -9,7 +9,7 @@ const Main = () => {
   return (
     <div className="font-poppins">
       <div
-        className={`${sidebarToggle ? "duration-500 ease-in-out" : "ml-0 md:-ml-60"}`}
+        className={`${sidebarToggle ? "duration-500 ease-in-out" : " md:-ml-60"}`}
       >
         <div className="">
           <div className="sticky top-0 z-40">
