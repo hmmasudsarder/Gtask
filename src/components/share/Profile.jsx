@@ -97,12 +97,12 @@ const Profile = () => {
     };
     await axios
       .patch(
-        `http://52.74.26.144:9000/client/apiClient/${itemId}/`, // Now using '/api' which will be proxied
+        `http://52.74.26.144:9000/client/apiClient/${itemId}/`, 
         postData,
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${token}`, // Use "Bearer" if your API expects it
+            Authorization: `Token ${token}`, 
           },
         }
       )
@@ -126,6 +126,7 @@ const Profile = () => {
       username: username,
       organization: organization,
     };
+    console.log(postData);
     await axios
       .post(
         "http://52.74.26.144:9000/client/apiClient/create/", // Now using '/api' which will be proxied
@@ -141,6 +142,7 @@ const Profile = () => {
         console.log("Data sent successfully", data);
         navigate("/product");
         refetch();
+        alert("data send Successfully", data)
       })
       .catch((error) => {
         console.log("Error sending data", error);
